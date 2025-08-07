@@ -20,7 +20,7 @@ options(scipen=999)
 
 pred_week<-1
 
-Hist_Model_Past <-read_xlsx("Full_Data_OU_models_extended_08042025.xlsx") %>% 
+Hist_Model_Past <-read_xlsx("Excel_Output/OU_forecast_horiz49_2013_2023_HIST_PRED_week17_auto.xlsx") %>% 
   filter(!(season %in% c("2024")&week %in% c(pred_week))) %>% 
   mutate(Result= case_when(Check %in% c("Yes")~"Correct",
                            Check %in% c("Push")~"Push",
@@ -32,7 +32,7 @@ Pred_Model_Past <-read_xlsx("Excel_Output/OU_forecast_horiz1_2013_2023_week1_090
   filter(season %in% c("2024")&week %in% c(pred_week))%>%
   rename(home_off=home_team_Off,home_def=home_team_Def,away_off=away_team_Off,away_def=away_team_Def,matchup=Matchup,model=Model) 
 
-Hist_Model_Spread_Past <-read_xlsx("Full_Data_Spread_models_extended_08042025.xlsx")%>% 
+Hist_Model_Spread_Past <-read_xlsx("Excel_Output/Spread_Forecast_horiz25_2013_2023_week17_12282024_auto_70_30.xlsx")%>% 
   filter(!(season %in% c("2024")&week %in% c(pred_week))) %>% 
   mutate(Result= case_when(Check %in% c("Yes")~"Correct",
                            Check %in% c("Push")~"Push",
@@ -123,24 +123,24 @@ df_both<-pred_spread_reduced %>%
   mutate(model_pref_ou=ifelse(over_pred>=.5,"Over","Under"))  %>% 
   left_join(Mcom_picks) %>% 
   mutate(Mark_vs_Model_spread=ifelse(away_cover_pred >=.595 & model_pref_spread==marks_pref_spread,paste0("Model and I both like ","",model_pref_spread),
-                                     ifelse(home_cover_pred >=.57 & model_pref_spread==marks_pref_spread,paste0("Model and I both like ","",model_pref_spread),
-                                            ifelse(marks_pref_spread == "No Pick"&away_cover_pred >=.595 & model_pref_spread!=marks_pref_spread,paste0("Model likes ","",model_pref_spread, ", I have no pick"),
-                                                   ifelse(marks_pref_spread == "No Pick"&home_cover_pred >=.57 & model_pref_spread!=marks_pref_spread,paste0("Model likes ","",model_pref_spread, ", I have no pick"),
-                                                          ifelse(marks_pref_spread != "No Pick"&away_cover_pred >=.595 & model_pref_spread!=marks_pref_spread,paste0("Model and I disagree on this pick, I like ","",marks_pref_spread),
-                                                                 ifelse(marks_pref_spread != "No Pick"&home_cover_pred >=.57 & model_pref_spread!=marks_pref_spread,paste0("Model and I disagree on this pick, I like ","",marks_pref_spread),
-                                                                        ifelse(marks_pref_spread != "No Pick"&away_cover_pred <.595, paste0("Model isn't confident enough or doesn't pick game but I like ","", marks_pref_spread),
-                                                                               ifelse(marks_pref_spread != "No Pick"&home_cover_pred <.57,paste0("Model isn't confident enough or doesn't pick game but I like ","", marks_pref_spread),
-                                                                                      "Neither have high enough confidence on this spread"))))))))) %>% 
+                                        ifelse(home_cover_pred >=.57 & model_pref_spread==marks_pref_spread,paste0("Model and I both like ","",model_pref_spread),
+                                               ifelse(marks_pref_spread == "No Pick"&away_cover_pred >=.595 & model_pref_spread!=marks_pref_spread,paste0("Model likes ","",model_pref_spread, ", I have no pick"),
+                                                      ifelse(marks_pref_spread == "No Pick"&home_cover_pred >=.57 & model_pref_spread!=marks_pref_spread,paste0("Model likes ","",model_pref_spread, ", I have no pick"),
+                                               ifelse(marks_pref_spread != "No Pick"&away_cover_pred >=.595 & model_pref_spread!=marks_pref_spread,paste0("Model and I disagree on this pick, I like ","",marks_pref_spread),
+                                                      ifelse(marks_pref_spread != "No Pick"&home_cover_pred >=.57 & model_pref_spread!=marks_pref_spread,paste0("Model and I disagree on this pick, I like ","",marks_pref_spread),
+                                                             ifelse(marks_pref_spread != "No Pick"&away_cover_pred <.595, paste0("Model isn't confident enough or doesn't pick game but I like ","", marks_pref_spread),
+                                                                    ifelse(marks_pref_spread != "No Pick"&home_cover_pred <.57,paste0("Model isn't confident enough or doesn't pick game but I like ","", marks_pref_spread),
+                                                                           "Neither have high enough confidence on this spread"))))))))) %>% 
   
   mutate(Mark_vs_Model_ou=ifelse(under_pred >=.595 & model_pref_ou==marks_pref_ou,paste0("Model and I both like ","",model_pref_ou),
-                                 ifelse(over_pred >=.57 & model_pref_ou==marks_pref_ou,paste0("Model and I both like ","",model_pref_ou),
-                                        ifelse(marks_pref_ou == "No Pick"&under_pred >=.595 & model_pref_ou!=marks_pref_ou,paste0("Model likes ","",model_pref_ou, ", I have no pick"),
-                                               ifelse(marks_pref_ou == "No Pick"&over_pred >=.57 & model_pref_ou!=marks_pref_ou,paste0("Model likes ","",model_pref_ou, ", I have no pick"),
-                                                      ifelse(marks_pref_ou != "No Pick"&under_pred >=.595 & model_pref_ou!=marks_pref_ou,paste0("Model and I disagree on this total, I like ","",marks_pref_ou),
-                                                             ifelse(marks_pref_ou != "No Pick"&over_pred >=.57 & model_pref_ou!=marks_pref_ou,paste0("Model and I disagree on this total, I like ","",marks_pref_ou),
-                                                                    ifelse(marks_pref_ou != "No Pick"&under_pred <.595, paste0("Model isn't confident enough or doesn't pick total but I like ","", marks_pref_ou),
-                                                                           ifelse(marks_pref_ou != "No Pick"&over_pred <.57,paste0("Model isn't confident enough or doesn't pick total but I like ","", marks_pref_ou),
-                                                                                  "Neither have high enough confidence on this total"))))))))) %>% 
+                                        ifelse(over_pred >=.57 & model_pref_ou==marks_pref_ou,paste0("Model and I both like ","",model_pref_ou),
+                                               ifelse(marks_pref_ou == "No Pick"&under_pred >=.595 & model_pref_ou!=marks_pref_ou,paste0("Model likes ","",model_pref_ou, ", I have no pick"),
+                                                      ifelse(marks_pref_ou == "No Pick"&over_pred >=.57 & model_pref_ou!=marks_pref_ou,paste0("Model likes ","",model_pref_ou, ", I have no pick"),
+                                                             ifelse(marks_pref_ou != "No Pick"&under_pred >=.595 & model_pref_ou!=marks_pref_ou,paste0("Model and I disagree on this total, I like ","",marks_pref_ou),
+                                                                    ifelse(marks_pref_ou != "No Pick"&over_pred >=.57 & model_pref_ou!=marks_pref_ou,paste0("Model and I disagree on this total, I like ","",marks_pref_ou),
+                                                                           ifelse(marks_pref_ou != "No Pick"&under_pred <.595, paste0("Model isn't confident enough or doesn't pick total but I like ","", marks_pref_ou),
+                                                                                  ifelse(marks_pref_ou != "No Pick"&over_pred <.57,paste0("Model isn't confident enough or doesn't pick total but I like ","", marks_pref_ou),
+                                                                                         "Neither have high enough confidence on this total"))))))))) %>% 
   ungroup()%>% 
   select(away_team,home_team,total_line,away_line,home_line,Mark_vs_Model_ou,Mark_vs_Model_spread)
 
@@ -173,7 +173,7 @@ tup5 <- ""
 tup6 <- ""
 tup7 <- ""
 tup8 <- ""
-
+  
 tdown1 <- ""
 tdown2 <- ""
 tdown3 <- ""
