@@ -206,61 +206,61 @@ server <- function(input, output, session) {
   
   # expected_values <- reactive({
   #   total_legs <- as.numeric(input$total_legs)  
-  #   min_winning_legs <- as.numeric(input$win_legs)
-  #   total_bet <- as.numeric(input$weekly_bet)
-  #   p_win <- input$win_prob / 100
-  #   decimal_odds <- as.numeric(input$odds)  # Directly using the decimal odds value provided by the UI
-  #   
-  #   combinations <- choose(total_legs, min_winning_legs)
-  #   bet_per_group <- total_bet / combinations
-  #   
-  #   outcomes <- 0:total_legs
-  #   probabilities <- dbinom(outcomes, total_legs, p_win)
-  #   
-  #   winnings <- sapply(outcomes, function(wins) {
-  #     if (wins >= min_winning_legs) {
-  #       winning_combinations <- choose(wins, min_winning_legs)
-  #       winnings_per_combination <- bet_per_group * (decimal_odds^min_winning_legs)
-  #       total_winnings <- winnings_per_combination * winning_combinations
-  #       return(total_winnings)
-  #     } else {
-  #       return(-total_bet)  # Ensuring that losses are capped at total bet
-  #     }
-  #   })
-  #   
-  #   profits <- ifelse(outcomes < min_winning_legs, -total_bet, winnings - total_bet)
-  #   expected_values <- profits * probabilities
-  #   
-  #   # Create the data frame
-  #   df <- data.frame(
-  #     Win_Outcomes = outcomes,
-  #     Probabilities = probabilities,
-  #     Amount_Risked = rep(total_bet, length(outcomes)),
-  #     Winnings = winnings,
-  #     Profits = profits,
-  #     Expected_Value = expected_values
-  #   )
-  # 
-  #   # Add total row
-  #   total_row <- data.frame(
-  #     Win_Outcomes = "Total",
-  #     Probabilities = sum(probabilities),
-  #     Amount_Risked = "",
-  #     Winnings = "",
-  #     Profits = "",
-  #     Expected_Value = sum(expected_values)
-  #   )
-  # 
-  #   rbind(df, total_row)  # Append the total row
-  # })
-  # 
-  # output$round_robin_table <- renderDT({
-  #   datatable(expected_values(),
-  #             options = list(pageLength = 12, scrollX = TRUE),
-  #             rownames = FALSE) %>%
-  #     formatCurrency(c('Winnings', 'Profits', 'Expected_Value', 'Amount_Risked'), currency = "$", digits = 2) %>%
-  #     formatPercentage('Probabilities', digits = 2)
-  # })
+#   min_winning_legs <- as.numeric(input$win_legs)
+#   total_bet <- as.numeric(input$weekly_bet)
+#   p_win <- input$win_prob / 100
+#   decimal_odds <- as.numeric(input$odds)  # Directly using the decimal odds value provided by the UI
+#   
+#   combinations <- choose(total_legs, min_winning_legs)
+#   bet_per_group <- total_bet / combinations
+#   
+#   outcomes <- 0:total_legs
+#   probabilities <- dbinom(outcomes, total_legs, p_win)
+#   
+#   winnings <- sapply(outcomes, function(wins) {
+#     if (wins >= min_winning_legs) {
+#       winning_combinations <- choose(wins, min_winning_legs)
+#       winnings_per_combination <- bet_per_group * (decimal_odds^min_winning_legs)
+#       total_winnings <- winnings_per_combination * winning_combinations
+#       return(total_winnings)
+#     } else {
+#       return(-total_bet)  # Ensuring that losses are capped at total bet
+#     }
+#   })
+#   
+#   profits <- ifelse(outcomes < min_winning_legs, -total_bet, winnings - total_bet)
+#   expected_values <- profits * probabilities
+#   
+#   # Create the data frame
+#   df <- data.frame(
+#     Win_Outcomes = outcomes,
+#     Probabilities = probabilities,
+#     Amount_Risked = rep(total_bet, length(outcomes)),
+#     Winnings = winnings,
+#     Profits = profits,
+#     Expected_Value = expected_values
+#   )
+# 
+#   # Add total row
+#   total_row <- data.frame(
+#     Win_Outcomes = "Total",
+#     Probabilities = sum(probabilities),
+#     Amount_Risked = "",
+#     Winnings = "",
+#     Profits = "",
+#     Expected_Value = sum(expected_values)
+#   )
+# 
+#   rbind(df, total_row)  # Append the total row
+# })
+# 
+# output$round_robin_table <- renderDT({
+#   datatable(expected_values(),
+#             options = list(pageLength = 12, scrollX = TRUE),
+#             rownames = FALSE) %>%
+#     formatCurrency(c('Winnings', 'Profits', 'Expected_Value', 'Amount_Risked'), currency = "$", digits = 2) %>%
+#     formatPercentage('Probabilities', digits = 2)
+# })
   
   output$spread_picks <- renderDT({
     datatable(
@@ -291,8 +291,8 @@ server <- function(input, output, session) {
       )
     )
   })
-  
-  
+
+
   
   ###Input warning messages
   
@@ -932,7 +932,7 @@ server <- function(input, output, session) {
     }
   })
   
-  
+
   
   ####Tier Analytics
   
@@ -1211,23 +1211,26 @@ server <- function(input, output, session) {
   
   
   summ_table2 <- eventReactive(input$UPDATE2,{
-    showModal(modalDialog("Summarizing data...", footer = NULL, easyClose = TRUE, size = "m", fade = TRUE, style = "color:#0B0B45; background-color: #CC5500; border-color: #0B0B45"))
+    
+    showModal(modalDialog("Summarizing data...",footer=NULL, easyClose = TRUE, size = "m",fade=TRUE,style="color:#0B0B45; background-color: #CC5500; border-color: #0B0B45"))
     
     validate(
-      need(length(input$home_team2) > 0, "Home Team must be selected"),
-      need(length(input$away_team2) > 0, "Away Team must be selected"),
-      need(length(input$season2) > 0, "Season must be selected"),
-      need(length(input$Matchup2) > 0, "Matchup must be selected")
+      # need(length(input$Model2)>0,"Model must be selected"),
+      need(length(input$home_team2)>0,"Home Team must be selected"),
+      need(length(input$away_team2)>0,"Away Team must be selected"),
+      need(length(input$season2)>0,"Season must be selected"),
+      need(length(input$Matchup2)>0,"Matchup must be selected"),
+      
     )
     
-    OU_join <- Hist_Model_Past %>%
+    OU_join<- Hist_Model_Past %>%
       filter(home_team %in% input$home_team2,
              away_team %in% input$away_team2,
              season %in% input$season2,
              matchup %in% input$Matchup2,
              week %in% input$week2) %>%
       filter(!Result %in% c("Push")) %>%
-      mutate(Result_Count = ifelse(Result %in% c("Correct"), 1, 0))
+      mutate(Result_Count=ifelse(Result %in% c("Correct"),1,0))
     
     summ_table2 <- Hist_Model_Past %>%
       filter(home_team %in% input$home_team2,
@@ -1238,72 +1241,121 @@ server <- function(input, output, session) {
       filter(!Result %in% c("Push")) %>%
       select(season, week, away_team, home_team, model, Under_Pred, Over_Pred, total_line, total) %>%
       pivot_wider(names_from = "model", values_from = c(Under_Pred, Over_Pred)) %>%
-      left_join(OU_join) %>%
+      left_join(OU_join) %>% 
       mutate(
         Over_Pred = case_when(
-          input$MODEL_COMBO_OU == "All" ~ (Over_Pred_lr + Over_Pred_xg + Over_Pred_bayesian) / 3,
+          input$MODEL_COMBO_OU == "All" ~ (Over_Pred_lr + Over_Pred_rf + Over_Pred_xg) / 3,
           input$MODEL_COMBO_OU == "LRXG" ~ (Over_Pred_lr + Over_Pred_xg) / 2,
-          input$MODEL_COMBO_OU == "LRBAYES" ~ (Over_Pred_lr + Over_Pred_bayesian) / 2,
-          input$MODEL_COMBO_OU == "XGBAYES" ~ (Over_Pred_xg + Over_Pred_bayesian) / 2,
-          input$MODEL_COMBO_OU == "lr" ~ Over_Pred_lr,
-          input$MODEL_COMBO_OU == "xg" ~ Over_Pred_xg,
-          input$MODEL_COMBO_OU == "bayesian" ~ Over_Pred_bayesian,
+          input$MODEL_COMBO_OU == "LRRF" ~ (Over_Pred_lr + Over_Pred_rf) / 2,
+          input$MODEL_COMBO_OU == "RFXG" ~ (Over_Pred_rf + Over_Pred_xg) / 2,
+          input$MODEL_COMBO_OU == "LR" ~ (Over_Pred_lr),
+          input$MODEL_COMBO_OU == "RF" ~ (Over_Pred_rf),
+          input$MODEL_COMBO_OU == "XG" ~ (Over_Pred_xg),
           TRUE ~ NA_real_
         ),
         Under_Pred = case_when(
-          input$MODEL_COMBO_OU == "All" ~ (Under_Pred_lr + Under_Pred_xg + Under_Pred_bayesian) / 3,
+          input$MODEL_COMBO_OU == "All" ~ (Under_Pred_lr + Under_Pred_rf + Under_Pred_xg) / 3,
           input$MODEL_COMBO_OU == "LRXG" ~ (Under_Pred_lr + Under_Pred_xg) / 2,
-          input$MODEL_COMBO_OU == "LRBAYES" ~ (Under_Pred_lr + Under_Pred_bayesian) / 2,
-          input$MODEL_COMBO_OU == "XGBAYES" ~ (Under_Pred_xg + Under_Pred_bayesian) / 2,
-          input$MODEL_COMBO_OU == "lr" ~ Under_Pred_lr,
-          input$MODEL_COMBO_OU == "xg" ~ Under_Pred_xg,
-          input$MODEL_COMBO_OU == "bayesian" ~ Under_Pred_bayesian,
+          input$MODEL_COMBO_OU == "LRRF" ~ (Under_Pred_lr + Under_Pred_rf) / 2,
+          input$MODEL_COMBO_OU == "RFXG" ~ (Under_Pred_rf + Under_Pred_xg) / 2,
+          input$MODEL_COMBO_OU == "LR" ~ (Under_Pred_lr),
+          input$MODEL_COMBO_OU == "RF" ~ (Under_Pred_rf),
+          input$MODEL_COMBO_OU == "XG" ~ (Under_Pred_xg),
           TRUE ~ NA_real_
-        ),
-        
-        Sixty_Plus_Count = case_when(
-          input$MODEL_COMBO_OU == "lr" ~ ifelse(Over_Pred_lr >= 0.60 | Under_Pred_lr >= 0.60, 1, 0),
-          input$MODEL_COMBO_OU == "xg" ~ ifelse(Over_Pred_xg >= 0.60 | Under_Pred_xg >= 0.65, 1, 0),
-          input$MODEL_COMBO_OU == "bayesian" ~ ifelse(Over_Pred_bayesian >= 0.60 | Under_Pred_bayesian >= 0.60, 1, 0),
-          TRUE ~ ifelse(
-            Over_Pred_lr >= 0.60 | Over_Pred_xg >= 0.60 | Over_Pred_bayesian >= 0.60 |
-              Under_Pred_lr >= 0.60 | Under_Pred_xg >= 0.65 | Under_Pred_bayesian >= 0.60,
-            1, 0
-          )
-        ),
-        Sixty_Plus_Corr = case_when(
-          input$MODEL_COMBO_OU == "lr" ~ ifelse((Over_Pred_lr >= 0.60 | Under_Pred_lr >= 0.60) & Result_Count == 1, 1, 0),
-          input$MODEL_COMBO_OU == "xg" ~ ifelse((Over_Pred_xg >= 0.60 | Under_Pred_xg >= 0.65) & Result_Count == 1, 1, 0),
-          input$MODEL_COMBO_OU == "bayesian" ~ ifelse((Over_Pred_bayesian >= 0.60 | Under_Pred_bayesian >= 0.60) & Result_Count == 1, 1, 0),
-          TRUE ~ ifelse(
-            (Over_Pred_lr >= 0.60 | Over_Pred_xg >= 0.60 | Over_Pred_bayesian >= 0.60 |
-               Under_Pred_lr >= 0.60 | Under_Pred_xg >= 0.65 | Under_Pred_bayesian >= 0.60) & Result_Count == 1,
-            1, 0
-          )
-        ),
-        
+        )
+      ) %>%
+      mutate(
+        # Result_Count = ifelse(
+        #   (Over_Pred >= 0.5 & total > total_line) | (Under_Pred >= 0.5 & total < total_line),
+        #   1, 0
+        # ),
         Model_Agree_Count = case_when(
           input$MODEL_COMBO_OU == "All" ~ ifelse(
-            (Over_Pred_lr >= 0.5 & Over_Pred_xg >= 0.5 & Over_Pred_bayesian >= 0.5) |
-              (Under_Pred_lr >= 0.5 & Under_Pred_xg >= 0.5 & Under_Pred_bayesian >= 0.5), 1, 0),
+            (Over_Pred_lr >= 0.5 & Over_Pred_rf >= 0.5 & Over_Pred_xg >= 0.5) |
+              (Under_Pred_lr >= 0.5 & Under_Pred_rf >= 0.5 & Under_Pred_xg >= 0.5),
+            1, 0
+          ),
           input$MODEL_COMBO_OU == "LRXG" ~ ifelse(
             (Over_Pred_lr >= 0.5 & Over_Pred_xg >= 0.5) |
-              (Under_Pred_lr >= 0.5 & Under_Pred_xg >= 0.5), 1, 0),
-          input$MODEL_COMBO_OU == "LRBAYES" ~ ifelse(
-            (Over_Pred_lr >= 0.5 & Over_Pred_bayesian >= 0.5) |
-              (Under_Pred_lr >= 0.5 & Under_Pred_bayesian >= 0.5), 1, 0),
-          input$MODEL_COMBO_OU == "XGBAYES" ~ ifelse(
-            (Over_Pred_xg >= 0.5 & Over_Pred_bayesian >= 0.5) |
-              (Under_Pred_xg >= 0.5 & Under_Pred_bayesian >= 0.5), 1, 0),
-          input$MODEL_COMBO_OU == "lr" ~ ifelse((Over_Pred_lr >= 0.5) | (Under_Pred_lr >= 0.5), 1, 0),
-          input$MODEL_COMBO_OU == "xg" ~ ifelse((Over_Pred_xg >= 0.5) | (Under_Pred_xg >= 0.5), 1, 0),
-          input$MODEL_COMBO_OU == "bayesian" ~ ifelse((Over_Pred_bayesian >= 0.5) | (Under_Pred_bayesian >= 0.5), 1, 0),
+              (Under_Pred_lr >= 0.5 & Under_Pred_xg >= 0.5),
+            1, 0
+          ),
+          input$MODEL_COMBO_OU == "LRRF" ~ ifelse(
+            (Over_Pred_lr >= 0.5 & Over_Pred_rf >= 0.5) |
+              (Under_Pred_lr >= 0.5 & Under_Pred_rf >= 0.5),
+            1, 0
+          ),
+          input$MODEL_COMBO_OU == "RFXG" ~ ifelse(
+            (Over_Pred_rf >= 0.5 & Over_Pred_xg >= 0.5) |
+              (Under_Pred_rf >= 0.5 & Under_Pred_xg >= 0.5),
+            1, 0
+          ),
+          input$MODEL_COMBO_OU == "LR" ~ ifelse(
+            (Over_Pred_lr >= 0.5) |
+              (Under_Pred_lr >= 0.5),
+            1,0
+          ),
+          input$MODEL_COMBO_OU == "RF" ~ ifelse(
+            (Over_Pred_rf >= 0.5) |
+              (Under_Pred_rf >= 0.5),
+            1, 0
+          ),
+          input$MODEL_COMBO_OU == "XG" ~ ifelse(
+            (Over_Pred_xg >= 0.5) |
+              (Under_Pred_xg >= 0.5),
+            1, 0
+          ),
           TRUE ~ 0
         ),
-        
-        Model_Agree_Corr = ifelse(Model_Agree_Count == 1 & Result_Count == 1, 1, 0),
-        All_60_Count = ifelse(Sixty_Plus_Count == 1 & Model_Agree_Count == 1, 1, 0),
-        All_60_Corr = ifelse(Sixty_Plus_Count == 1 & Model_Agree_Count == 1 & Result_Count == 1, 1, 0)
+        Model_Agree_Corr = case_when(
+          input$MODEL_COMBO_OU == "All" ~ ifelse(
+            ((Over_Pred_lr >= 0.5 & Over_Pred_rf >= 0.5 & Over_Pred_xg >= 0.5) |
+               (Under_Pred_lr >= 0.5 & Under_Pred_rf >= 0.5 & Under_Pred_xg >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          input$MODEL_COMBO_OU == "LRXG" ~ ifelse(
+            ((Over_Pred_lr >= 0.5 & Over_Pred_xg >= 0.5) |
+               (Under_Pred_lr >= 0.5 & Under_Pred_xg >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          input$MODEL_COMBO_OU == "LRRF" ~ ifelse(
+            ((Over_Pred_lr >= 0.5 & Over_Pred_rf >= 0.5) |
+               (Under_Pred_lr >= 0.5 & Under_Pred_rf >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          input$MODEL_COMBO_OU == "RFXG" ~ ifelse(
+            ((Over_Pred_rf >= 0.5 & Over_Pred_xg >= 0.5) |
+               (Under_Pred_rf >= 0.5 & Under_Pred_xg >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          input$MODEL_COMBO_OU == "LR" ~ ifelse(
+            ((Over_Pred_lr >= 0.5) |
+               (Under_Pred_lr >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          input$MODEL_COMBO_OU == "RF" ~ ifelse(
+            ((Over_Pred_rf >= 0.5) |
+               (Under_Pred_rf >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          input$MODEL_COMBO_OU == "XG" ~ ifelse(
+            ((Over_Pred_xg >= 0.5) |
+               (Under_Pred_xg >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          TRUE ~ 0
+        ),
+        Sixty_Plus_Count = ifelse(Over_Pred >= 0.57 | Under_Pred >= 0.595, 1, 0),
+        Sixty_Plus_Corr = ifelse(Sixty_Plus_Count == 1 & Result_Count == 1, 1, 0),
+        All_60_Count=ifelse((Over_Pred >= 0.57 | Under_Pred >= 0.595)&Model_Agree_Count==1,1,0),
+        All_60_Corr=ifelse(Sixty_Plus_Corr==1&Model_Agree_Corr==1,1,0)
       ) %>%
       group_by_at(c(input$GROUP_BY2)) %>%
       summarise(
@@ -1313,10 +1365,10 @@ server <- function(input, output, session) {
         total = mean(total, na.rm = TRUE),
         `High Conf Obs` = sum(Sixty_Plus_Count, na.rm = TRUE),
         Sixty_Plus_Corr = sum(Sixty_Plus_Corr, na.rm = TRUE),
-        `Mod All Agree Obs` = sum(Model_Agree_Count, na.rm = TRUE),
+        `Mod All Agree Obs`= sum(Model_Agree_Count, na.rm = TRUE),
         Model_Agree_Corr = sum(Model_Agree_Corr, na.rm = TRUE),
-        All_60plus_Corr = sum(All_60_Corr, na.rm = TRUE),
-        `Mod All Agree High Conf Obs` = sum(All_60_Count, na.rm = TRUE),
+        All_60plus_Corr=sum(All_60_Corr,na.rm=T),
+        `Mod All Agree High Conf Obs`=sum(All_60_Count,na.rm=T),
         `Corr Obs` = sum(Result_Count, na.rm = TRUE),
         `Total Obs` = n()
       ) %>%
@@ -1324,16 +1376,22 @@ server <- function(input, output, session) {
         `win %` = `Corr Obs` / `Total Obs`,
         `Mod All Agree win %` = Model_Agree_Corr / `Mod All Agree Obs`,
         `High Conf win %` = Sixty_Plus_Corr / `High Conf Obs`,
-        `Mod All Agree High Conf win %` = All_60plus_Corr / `Mod All Agree High Conf Obs`
+        `Mod All Agree High Conf win %`=All_60plus_Corr/`Mod All Agree High Conf Obs`
       ) %>%
       select(input$GROUP_BY2, under_pred, over_pred, total_line, total,
-             `Total Obs`, `Mod All Agree Obs`, `High Conf Obs`, `Mod All Agree High Conf Obs`,
-             `win %`, `Mod All Agree win %`, `High Conf win %`, `Mod All Agree High Conf win %`)
+             `Total Obs`, `Mod All Agree Obs`, `High Conf Obs`,`Mod All Agree High Conf Obs`,
+             `win %`, `Mod All Agree win %`,`High Conf win %`,`Mod All Agree High Conf win %`)
+    
+    
+    
     
     Sys.sleep(1.5)
     removeModal()
+    
     summ_table2
+    
   })
+  
   
   # Output Table 
   output$compare_table2 <- DT::renderDT(server = FALSE,{
@@ -1599,23 +1657,28 @@ server <- function(input, output, session) {
   
   summ_table102 <- eventReactive(input$UPDATE102,{
     
-    showModal(modalDialog("Summarizing data...", footer = NULL, easyClose = TRUE, size = "m", fade = TRUE, style = "color:#0B0B45; background-color: #CC5500; border-color: #0B0B45"))
+    showModal(modalDialog("Summarizing data...",footer=NULL, easyClose = TRUE, size = "m",fade=TRUE,style="color:#0B0B45; background-color: #CC5500; border-color: #0B0B45"))
     
     validate(
-      need(length(input$home_team102) > 0, "Home Team must be selected"),
-      need(length(input$away_team102) > 0, "Away Team must be selected"),
-      need(length(input$season102) > 0, "Season must be selected"),
-      need(length(input$Matchup102) > 0, "Matchup must be selected")
+      need(length(input$home_team102)>0,"Home Team must be selected"),
+      need(length(input$away_team102)>0,"Away Team must be selected"),
+      need(length(input$season102)>0,"Season must be selected"),
+      need(length(input$Matchup102)>0,"Matchup must be selected"),
     )
     
-    spread_join <- Hist_Model_Spread_Past %>%
+    
+    
+    
+    
+    spread_join<- Hist_Model_Spread_Past %>%
       filter(home_team %in% input$home_team102,
              away_team %in% input$away_team102,
              season %in% input$season102,
              matchup %in% input$Matchup102,
              week %in% input$week102) %>%
       filter(!Result %in% c("Push")) %>%
-      mutate(Result_Count = ifelse(Result %in% c("Correct"), 1, 0))
+      mutate(Result_Count=ifelse(Result %in% c("Correct"),1,0))
+    
     
     summ_table102 <- Hist_Model_Spread_Past %>%
       filter(home_team %in% input$home_team102,
@@ -1624,103 +1687,123 @@ server <- function(input, output, session) {
              matchup %in% input$Matchup102,
              week %in% input$week102) %>%
       filter(!Result %in% c("Push")) %>%
-      rename(away_cover = away_cov_Pred, home_cover = home_cov_Pred) %>%
+      rename(away_cover=away_cov_Pred,home_cover=home_cov_Pred) %>% 
       select(season, week, away_team, home_team, model, home_cover, away_cover, spread_line, result) %>%
-      mutate(away_line = spread_line, home_line = -1 * spread_line,
-             away_result = result, home_result = -1 * result) %>%
-      select(-spread_line) %>%
+      mutate(away_line=spread_line,home_line=-1*spread_line,
+             away_result=result,home_result=-1*result) %>% 
+      select(-spread_line) %>% 
       pivot_wider(names_from = "model", values_from = c(home_cover, away_cover)) %>%
-      left_join(spread_join) %>%
+      left_join(spread_join) %>% 
       mutate(
         away_cover = case_when(
-          input$MODEL_COMBO_SPREAD == "All" ~ (away_cover_lr + away_cover_xg + away_cover_bayesian + away_cover_rf) / 4,
+          input$MODEL_COMBO_SPREAD == "All" ~ (away_cover_lr + away_cover_rf + away_cover_xg) / 3,
           input$MODEL_COMBO_SPREAD == "LRXG" ~ (away_cover_lr + away_cover_xg) / 2,
-          input$MODEL_COMBO_SPREAD == "LRBAYES" ~ (away_cover_lr + away_cover_bayesian) / 2,
-          input$MODEL_COMBO_SPREAD == "XGBAYES" ~ (away_cover_xg + away_cover_bayesian) / 2,
           input$MODEL_COMBO_SPREAD == "LRRF" ~ (away_cover_lr + away_cover_rf) / 2,
-          input$MODEL_COMBO_SPREAD == "XGRF" ~ (away_cover_xg + away_cover_rf) / 2,
-          input$MODEL_COMBO_SPREAD == "RFBAYES" ~ (away_cover_rf + away_cover_bayesian) / 2,
-          input$MODEL_COMBO_SPREAD == "LR" ~ away_cover_lr,
-          input$MODEL_COMBO_SPREAD == "XG" ~ away_cover_xg,
-          input$MODEL_COMBO_SPREAD == "BAYES" ~ away_cover_bayesian,
-          input$MODEL_COMBO_SPREAD == "RF" ~ away_cover_rf,
+          input$MODEL_COMBO_SPREAD == "RFXG" ~ (away_cover_rf + away_cover_xg) / 2,
+          input$MODEL_COMBO_SPREAD == "LR" ~ (away_cover_lr) / 1,
+          input$MODEL_COMBO_SPREAD == "RF" ~ (away_cover_rf) / 1,
+          input$MODEL_COMBO_SPREAD == "XG" ~ (away_cover_xg) / 1,
           TRUE ~ NA_real_
         ),
         home_cover = case_when(
-          input$MODEL_COMBO_SPREAD == "All" ~ (home_cover_lr + home_cover_xg + home_cover_bayesian + home_cover_rf) / 4,
+          input$MODEL_COMBO_SPREAD == "All" ~ (home_cover_lr + home_cover_rf + home_cover_xg) / 3,
           input$MODEL_COMBO_SPREAD == "LRXG" ~ (home_cover_lr + home_cover_xg) / 2,
-          input$MODEL_COMBO_SPREAD == "LRBAYES" ~ (home_cover_lr + home_cover_bayesian) / 2,
-          input$MODEL_COMBO_SPREAD == "XGBAYES" ~ (home_cover_xg + home_cover_bayesian) / 2,
           input$MODEL_COMBO_SPREAD == "LRRF" ~ (home_cover_lr + home_cover_rf) / 2,
-          input$MODEL_COMBO_SPREAD == "XGRF" ~ (home_cover_xg + home_cover_rf) / 2,
-          input$MODEL_COMBO_SPREAD == "RFBAYES" ~ (home_cover_rf + home_cover_bayesian) / 2,
-          input$MODEL_COMBO_SPREAD == "LR" ~ home_cover_lr,
-          input$MODEL_COMBO_SPREAD == "XG" ~ home_cover_xg,
-          input$MODEL_COMBO_SPREAD == "BAYES" ~ home_cover_bayesian,
-          input$MODEL_COMBO_SPREAD == "RF" ~ home_cover_rf,
+          input$MODEL_COMBO_SPREAD == "RFXG" ~ (home_cover_rf + home_cover_xg) / 2,
+          input$MODEL_COMBO_SPREAD == "LR" ~ (home_cover_lr) / 1,
+          input$MODEL_COMBO_SPREAD == "RF" ~ (home_cover_rf) / 1,
+          input$MODEL_COMBO_SPREAD == "XG" ~ (home_cover_xg) / 1,
           TRUE ~ NA_real_
         )
-      ) %>% 
+      ) %>%
       mutate(
-        # High confidence: model-specific thresholds
-        Sixty_Plus_Count = case_when(
-          input$MODEL_COMBO_SPREAD == "LR" ~ ifelse(away_cover_lr >= 0.60 | home_cover_lr >= 0.60, 1, 0),
-          input$MODEL_COMBO_SPREAD == "XG" ~ ifelse(away_cover_xg >= 0.70 | home_cover_xg >= 0.60, 1, 0),
-          input$MODEL_COMBO_SPREAD == "BAYES" ~ ifelse(away_cover_bayesian >= 0.65 | home_cover_bayesian >= 0.65, 1, 0),
-          input$MODEL_COMBO_SPREAD == "RF" ~ ifelse(away_cover_rf >= 0.60 | home_cover_rf >= 0.60, 1, 0),
-          TRUE ~ ifelse(
-            away_cover_lr >= 0.60 | away_cover_xg >= 0.70 | away_cover_bayesian >= 0.65 | away_cover_rf >= 0.60 |
-              home_cover_lr >= 0.60 | home_cover_xg >= 0.60 | home_cover_bayesian >= 0.65 | home_cover_rf >= 0.60,
-            1, 0
-          )
-        ),
-        Sixty_Plus_Corr = case_when(
-          input$MODEL_COMBO_SPREAD == "LR" ~ ifelse((away_cover_lr >= 0.60 | home_cover_lr >= 0.60) & Result_Count == 1, 1, 0),
-          input$MODEL_COMBO_SPREAD == "XG" ~ ifelse((away_cover_xg >= 0.70 | home_cover_xg >= 0.60) & Result_Count == 1, 1, 0),
-          input$MODEL_COMBO_SPREAD == "BAYES" ~ ifelse((away_cover_bayesian >= 0.65 | home_cover_bayesian >= 0.65) & Result_Count == 1, 1, 0),
-          input$MODEL_COMBO_SPREAD == "RF" ~ ifelse((away_cover_rf >= 0.60 | home_cover_rf >= 0.60) & Result_Count == 1, 1, 0),
-          TRUE ~ ifelse(
-            (away_cover_lr >= 0.60 | away_cover_xg >= 0.70 | away_cover_bayesian >= 0.65 | away_cover_rf >= 0.60 |
-               home_cover_lr >= 0.60 | home_cover_xg >= 0.60 | home_cover_bayesian >= 0.65 | home_cover_rf >= 0.60) &
-              Result_Count == 1,
-            1, 0
-          )
-        ),
-        
-        # Model agreement (all selected models agree on same side of spread)
+        Sixty_Plus_Count = ifelse(away_cover >= 0.595 | home_cover >= 0.58, 1, 0),
+        Sixty_Plus_Corr= ifelse((away_cover >= 0.595 | home_cover >= 0.58) & Result_Count==1,1,0),
         Model_Agree_Count = case_when(
           input$MODEL_COMBO_SPREAD == "All" ~ ifelse(
-            (away_cover_lr >= 0.5 & away_cover_xg >= 0.5 & away_cover_bayesian >= 0.5 & away_cover_rf >= 0.5) |
-              (home_cover_lr >= 0.5 & home_cover_xg >= 0.5 & home_cover_bayesian >= 0.5 & home_cover_rf >= 0.5), 1, 0),
+            (away_cover_lr >= 0.5 & away_cover_rf >= 0.5 & away_cover_xg >= 0.5) |
+              (home_cover_lr >= 0.5 & home_cover_rf >= 0.5 & home_cover_xg >= 0.5),
+            1, 0
+          ),
           input$MODEL_COMBO_SPREAD == "LRXG" ~ ifelse(
             (away_cover_lr >= 0.5 & away_cover_xg >= 0.5) |
-              (home_cover_lr >= 0.5 & home_cover_xg >= 0.5), 1, 0),
-          input$MODEL_COMBO_SPREAD == "LRBAYES" ~ ifelse(
-            (away_cover_lr >= 0.5 & away_cover_bayesian >= 0.5) |
-              (home_cover_lr >= 0.5 & home_cover_bayesian >= 0.5), 1, 0),
-          input$MODEL_COMBO_SPREAD == "XGBAYES" ~ ifelse(
-            (away_cover_xg >= 0.5 & away_cover_bayesian >= 0.5) |
-              (home_cover_xg >= 0.5 & home_cover_bayesian >= 0.5), 1, 0),
+              (home_cover_lr >= 0.5 & home_cover_xg >= 0.5),
+            1, 0
+          ),
           input$MODEL_COMBO_SPREAD == "LRRF" ~ ifelse(
             (away_cover_lr >= 0.5 & away_cover_rf >= 0.5) |
-              (home_cover_lr >= 0.5 & home_cover_rf >= 0.5), 1, 0),
-          input$MODEL_COMBO_SPREAD == "XGRF" ~ ifelse(
-            (away_cover_xg >= 0.5 & away_cover_rf >= 0.5) |
-              (home_cover_xg >= 0.5 & home_cover_rf >= 0.5), 1, 0),
-          input$MODEL_COMBO_SPREAD == "RFBAYES" ~ ifelse(
-            (away_cover_rf >= 0.5 & away_cover_bayesian >= 0.5) |
-              (home_cover_rf >= 0.5 & home_cover_bayesian >= 0.5), 1, 0),
-          input$MODEL_COMBO_SPREAD == "LR" ~ ifelse((away_cover_lr >= 0.5) | (home_cover_lr >= 0.5), 1, 0),
-          input$MODEL_COMBO_SPREAD == "XG" ~ ifelse((away_cover_xg >= 0.5) | (home_cover_xg >= 0.5), 1, 0),
-          input$MODEL_COMBO_SPREAD == "BAYES" ~ ifelse((away_cover_bayesian >= 0.5) | (home_cover_bayesian >= 0.5), 1, 0),
-          input$MODEL_COMBO_SPREAD == "RF" ~ ifelse((away_cover_rf >= 0.5) | (home_cover_rf >= 0.5), 1, 0),
+              (home_cover_lr >= 0.5 & home_cover_rf >= 0.5),
+            1, 0
+          ),
+          input$MODEL_COMBO_SPREAD == "RFXG" ~ ifelse(
+            (away_cover_rf >= 0.5 & away_cover_xg >= 0.5) |
+              (home_cover_rf >= 0.5 & home_cover_xg >= 0.5),
+            1, 0
+          ),
+          input$MODEL_COMBO_SPREAD == "LR" ~ ifelse(
+            (away_cover_lr >= 0.5) |
+              (home_cover_lr >= 0.5),
+            1, 0
+          ),
+          input$MODEL_COMBO_SPREAD == "RF" ~ ifelse(
+            (away_cover_rf >= 0.5) |
+              (home_cover_rf >= 0.5),
+            1, 0
+          ),
+          input$MODEL_COMBO_SPREAD == "XG" ~ ifelse(
+            (away_cover_xg >= 0.5) |
+              (home_cover_xg >= 0.5),
+            1, 0
+          ),
           TRUE ~ 0
         ),
-        Model_Agree_Corr = ifelse(Model_Agree_Count == 1 & Result_Count == 1, 1, 0),
-        
-        # Agreement AND high confidence
-        All_60_Count = ifelse(Sixty_Plus_Count == 1 & Model_Agree_Count == 1, 1, 0),
-        All_60_Corr  = ifelse(Sixty_Plus_Corr == 1 & Model_Agree_Corr == 1, 1, 0)
+        Model_Agree_Corr = case_when(
+          input$MODEL_COMBO_SPREAD == "All" ~ ifelse(
+            ((away_cover_lr >= 0.5 & away_cover_rf >= 0.5 & away_cover_xg >= 0.5) |
+               (home_cover_lr >= 0.5 & home_cover_rf >= 0.5 & home_cover_xg >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          input$MODEL_COMBO_SPREAD == "LRXG" ~ ifelse(
+            ((away_cover_lr >= 0.5 & away_cover_xg >= 0.5) |
+               (home_cover_lr >= 0.5 & home_cover_xg >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          input$MODEL_COMBO_SPREAD == "LRRF" ~ ifelse(
+            ((away_cover_lr >= 0.5 & away_cover_rf >= 0.5) |
+               (home_cover_lr >= 0.5 & home_cover_rf >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          input$MODEL_COMBO_SPREAD == "RFXG" ~ ifelse(
+            ((away_cover_rf >= 0.5 & away_cover_xg >= 0.5) |
+               (home_cover_rf >= 0.5 & home_cover_xg >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          input$MODEL_COMBO_SPREAD == "LR" ~ ifelse(
+            ((away_cover_lr >= 0.5) |
+               (home_cover_lr >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          input$MODEL_COMBO_SPREAD == "RF" ~ ifelse(
+            ((away_cover_rf >= 0.5) |
+               (home_cover_rf >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          input$MODEL_COMBO_SPREAD == "XG" ~ ifelse(
+            ((away_cover_xg >= 0.5) |
+               (home_cover_xg >= 0.5)) &
+              Result_Count == 1,
+            1, 0
+          ),
+          TRUE ~ 0
+        ),
+        All_60_Count=ifelse((away_cover >= 0.595 | home_cover >= 0.58)&Model_Agree_Count==1,1,0),
+        All_60_Corr=ifelse(Sixty_Plus_Corr==1&Model_Agree_Corr==1,1,0)
       ) %>%
       group_by_at(c(input$GROUP_BY102)) %>%
       summarise(
@@ -1735,8 +1818,8 @@ server <- function(input, output, session) {
         Sixty_Plus_Corr = sum(Sixty_Plus_Corr, na.rm = TRUE),
         `Mod All Agree Obs` = sum(Model_Agree_Count, na.rm = TRUE),
         Model_Agree_Corr = sum(Model_Agree_Corr, na.rm = TRUE),
-        All_60plus_Corr = sum(All_60_Corr, na.rm = TRUE),
-        `Mod All Agree High Conf Obs` = sum(All_60_Count, na.rm = TRUE),
+        All_60plus_Corr=sum(All_60_Corr,na.rm=T),
+        `Mod All Agree High Conf Obs`=sum(All_60_Count,na.rm=T),
         `Corr Obs` = sum(Result_Count, na.rm = TRUE),
         `Total Obs` = n()
       ) %>%
@@ -1744,21 +1827,31 @@ server <- function(input, output, session) {
         `win %` = `Corr Obs` / `Total Obs`,
         `Mod All Agree win %` = Model_Agree_Corr / `Mod All Agree Obs`,
         `High Conf win %` = Sixty_Plus_Corr / `High Conf Obs`,
-        `Mod All Agree High Conf win %` = All_60plus_Corr / `Mod All Agree High Conf Obs`,
+        `Mod All Agree High Conf win %`=All_60plus_Corr/`Mod All Agree High Conf Obs`,
         outcome = ifelse(away_result < 0,
                          paste("Away wins by", round(abs(away_result),1)),
                          ifelse(away_result==0,"Tie",
                                 paste("Home wins by", round(abs(home_result),1))))
-      ) %>%
-    select(input$GROUP_BY102, away_cover, home_cover, away_line, home_line, result, outcome,
-           `Total Obs`, `Mod All Agree Obs`, `High Conf Obs`, `Mod All Agree High Conf Obs`,
-           `win %`, `Mod All Agree win %`, `High Conf win %`, `Mod All Agree High Conf win %`)
+      ) %>% 
+      select(input$GROUP_BY102, away_cover, home_cover, away_line, home_line, result, outcome,
+             `Total Obs`, `Mod All Agree Obs`, `High Conf Obs`,`Mod All Agree High Conf Obs`,
+             `win %`, `Mod All Agree win %`,`High Conf win %`,`Mod All Agree High Conf win %`)
+    
+    
+    
+    
+    
+    
+    
+    
     
     Sys.sleep(1.5)
     removeModal()
     
     summ_table102
+    
   })
+  
   
   # Output Table 
   output$compare_table102 <- DT::renderDT(server = FALSE,{
