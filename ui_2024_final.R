@@ -150,42 +150,42 @@ body <- dashboardBody(
     ####Over Under
     #########################
     
-    #    tags$head(
-    #   tags$style(HTML("
-    #     .custom-dropdown-button .btn {
-    #       background-color: #CC5500 !important;
-    #       color: white !important;
-    #       border-color: #CC5500 !important;
-    #     }
-    #   "))
-    # ),
-    
-    # New Tab (first tab)
-    
-    tabItem(
-      tabName = "Intro_How_To",
-      style = "color:#CC5500",
-      fluidPage(
-        tags$style(HTML("
+#    tags$head(
+#   tags$style(HTML("
+#     .custom-dropdown-button .btn {
+#       background-color: #CC5500 !important;
+#       color: white !important;
+#       border-color: #CC5500 !important;
+#     }
+#   "))
+# ),
+
+# New Tab (first tab)
+
+tabItem(
+  tabName = "Intro_How_To",
+  style = "color:#CC5500",
+  fluidPage(
+    tags$style(HTML("
   .dropdown-menu {
     max-height: 400px; /* Adjust based on your needs */
     overflow-y: auto;
   }
 ")),
-        fluidRow(
-          column(12, align = "center",
-                 h2("If you don't have time to look through all the bells and whistles of the app and just want the picks please visit 
+    fluidRow(
+      column(12, align = "center",
+             h2("If you don't have time to look through all the bells and whistles of the app and just want the picks please visit 
              tab 6 (Prediction O/U Aggregated Models) and tab 9 (Prediction Spread Aggregated Models)
                 for the picks. Picks in our wheelhouse will be highlighted green. Additional information in the View Instructions tab below.
                 The appendix will have additional model info, picks we're playing this week, 
                 picks I agree/disagree with the model on for O/U and spread, player prop locks of the week and what's trending up/trending down in the NFL.", 
-                    style = "font-size: 22px; text-align: center;"),
-          ),
-        ),
-        fluidRow(
-          column(6, align = "center",
-                 h2("About Model/How To Use Model:", 
-                    style = "font-size: 24px; text-align: center;"),
+                style = "font-size: 22px; text-align: center;"),
+    ),
+    ),
+    fluidRow(
+      column(6, align = "center",
+             h2("About Model/How To Use Model:", 
+                style = "font-size: 24px; text-align: center;"),
                  dropdownButton(
                    label = "View Instructions", 
                    icon = icon("football-ball"),
@@ -227,11 +227,11 @@ You are still the end user, so don't be afraid to just use it to affirm your gut
   Also, please judge the model in 4 week increments opposed to week by week and in the case where things go cold, I don't want to hear complaining. You are the end user.",
                      style = "font-size: 18px; text-align: center;")
                  )
-                 
-          ),
-          
-          
-          # fluidRow(
+             
+      ),
+
+
+       # fluidRow(
           column(6, align = "center",
                  h2("About 3 Algorithms Used:", style = "font-size: 24px; text-align: center;"),
                  dropdownButton(
@@ -245,7 +245,7 @@ You are still the end user, so don't be afraid to just use it to affirm your gut
 Imagine a classroom where a teacher gives a test, and every time a student makes a mistake, the teacher gives extra help on that specific problem. 
 XGBoost builds a series of decision trees, where each new tree focuses on the mistakes made by the previous ones. By doing this, it creates a very strong model that makes highly accurate predictions.",
                      style = "font-size: 18px; text-align: center;"),
-                   #    br(),
+               #    br(),
                    h3("Random Forest", style = "font-size: 24px; text-align: center;"),
                    p("Not the best performer at either spread or over/under but nonetheless has good enough accuracy to be included. Random Forest is like asking a group of experts for their opinions to make a decision. 
 Each expert is given different information and comes up with their own conclusion. Then, they all vote, and the majority vote is the final decision. 
@@ -257,13 +257,13 @@ In Random Forest, each expert is actually a decision tree, which makes decisions
 Logistic regression tries to divide the space so that most of the red marbles end up on one side and most of the blue marbles on the other.",
                      style = "font-size: 18px; text-align: center;")
                  ),
-                 
-                 
-                 
-          ),
-        ),
-      ),
+               
+          
+ 
     ),
+),
+),
+),
     
     
     
@@ -310,11 +310,11 @@ Logistic regression tries to divide the space so that most of the red marbles en
                    status = "primary", 
                    circle = FALSE,
                    width = "100%",  # Removed trailing comma here
-                   p("You might notice this model leans towards the under and towards away teams covering. 
+                 p("You might notice this model leans towards the under and towards away teams covering. 
                      I'd say that's a good thing because as you can see above, under's hit more than over's...even though they are less fun to root for. 
                      And the away team covers slightly more than the home team, doesn't mean they win more necessarily but they cover more (Guess home field ain't all that?!)", 
-                     style = "font-size: 20px; text-align: center;")
-                 ),
+                   style = "font-size: 20px; text-align: center;")
+          ),
           ),
         ),
         br(),
@@ -390,25 +390,25 @@ Logistic regression tries to divide the space so that most of the red marbles en
         
       )
     ),
-    
-    
-    tabItem(
-      tabName="Round_Robin_Calc",
-      style="color:#CC5500",
-      fluidPage(
+        
+        
+        tabItem(
+          tabName="Round_Robin_Calc",
+          style="color:#CC5500",
+          fluidPage(
         fluidRow(
           column(12, align = "center",
                  div(class = "info-box",
                      h4("Round Robin Expected Value/Profit Calculator: Below is an expected value/expected profit table breakdown for the Round Robin strategy.",
                         style = "font-size: 24px; text-align: center;"),
-                     p("Total number of legs is the amount of games you will be playing in total. The default will be 6 legs as that's what we typically play the most. When the model has a bunch of picks we also like to play 8 legs",
+              p("Total number of legs is the amount of games you will be playing in total. The default will be 6 legs as that's what we typically play the most. When the model has a bunch of picks we also like to play 8 legs",
                        style = "color:#CC5500; font-size: 18px; text-align: center;"),  
                      p(" Minimum winnings legs is the minimum amount of legs to hit one combo of games. Just because you hit the minimum amount of legs doesn't always mean the bet will be profitable. You can test that below. 
                The higher the minimum winning legs the bigger the payout but the higher risk of losing everything.  
                To make this simpler, think of how a slot machine works, if you are minimum betting you will win less on the big bonus round spins or on a jackpot, 
                but if you max bet or bet higher than the minimum you would win more.",
                        style = "color:#CC5500; font-size: 18px; text-align: center;"),  
-                     
+               
                      p("The total bet amount is how much you are willing to spend in total on the round robin bet or your total bet amount.
               When actually placing the round robin on the app of your choice, you need to be careful. In the app of your choice you'll see an number such as 15x for a 6 leg, 4 pick round robin.
               So if you wanted to place $2500 in total, you would actually want to do $166.67 as the amount as it's on a per outcome group basis.
@@ -417,7 +417,7 @@ Logistic regression tries to divide the space so that most of the red marbles en
                      p("Win probability is basically scenario testing on the model's accuracy so you can do doomsday scenarios, mid-tier scenarios, aggressive scenarios, etc.
                        The default is 60% here because that is what we're hoping to achieve as far as model accuracy for the 2024 season!",
                        style = "color:#CC5500; font-size: 18px; text-align: center;"),  
-                     p("The 'Select Odds' are how much return you get on the dollar. These would be average odds.. 
+               p("The 'Select Odds' are how much return you get on the dollar. These would be average odds.. 
                so it would average all your individual legs and spit out an average odds to keep things simple in this tool.
                        Below are listed odds from +100 to -500. Let's look at a few examples. 
                        Example 1: -110 odds, that would be 100/110 which is 0.91 cents on the dollar. 
@@ -429,7 +429,7 @@ Logistic regression tries to divide the space so that most of the red marbles en
                      numericInput("win_legs", "Minimum Winning Legs:", value = 4, min = 1, max = 6),
                      numericInput("weekly_bet", "Total Bet Amount ($):", value = 2500, min = 1000),
                      numericInput("win_prob", "Win Probability (%):", value = 60, min = 0, max = 100, step = 0.1),
-                     selectInput("odds", "Select Odds:", choices = generate_odds_choices(), selected = 1.9090),
+              selectInput("odds", "Select Odds:", choices = generate_odds_choices(), selected = 1.9090),
                      DTOutput("round_robin_table")
                  )
           )
@@ -437,10 +437,10 @@ Logistic regression tries to divide the space so that most of the red marbles en
       ),
     ),
     
-    #  ),
-    
-    # numericInput("win_prob", "Win Probability (%):", value = 60, min = 0, max = 100, step = 0.1),
-    # selectInput("odds", "Select Odds:",choices = c('+100'=2,'-105'=1.9523,'-110' = 1.909, '-115' = 1.869, '-120' = 1.833,'-125'=1.8),selected=1.909),     
+#  ),
+
+# numericInput("win_prob", "Win Probability (%):", value = 60, min = 0, max = 100, step = 0.1),
+# selectInput("odds", "Select Odds:",choices = c('+100'=2,'-105'=1.9523,'-110' = 1.909, '-115' = 1.869, '-120' = 1.833,'-125'=1.8),selected=1.909),     
     
     tabItem(
       tabName = "Prediction_Analytics_Past",
@@ -652,7 +652,7 @@ Logistic regression tries to divide the space so that most of the red marbles en
       style="color:#CC5500",
       fluidPage(
         titlePanel("Prediction O/U Agg Models"),
-        
+  
         
         fluidRow(
           
@@ -840,7 +840,7 @@ Logistic regression tries to divide the space so that most of the red marbles en
             background = "navy",
             pickerInput(inputId = "MODEL_COMBO_OU",
                         label = "MODEL COMBO?:",
-                        choices= c("All","LRXG","LRBAYES","XGBAYES","lr","bayesian","xg"),
+                        choices= c("All","LRXG","LRRF","RFXG","LR","RF","XG"),
                         selected = c("All"),
                         options = list(
                           `actions-box` = TRUE,
@@ -992,7 +992,7 @@ Logistic regression tries to divide the space so that most of the red marbles en
       }
     "))
           ),
-          
+        
           fluidRow(
             # Custom styled Info Box for how to use the grouping variables
             div(class = "custom-infobox",
@@ -1470,7 +1470,7 @@ Logistic regression tries to divide the space so that most of the red marbles en
             background = "navy",
             pickerInput(inputId = "MODEL_COMBO_SPREAD",
                         label = "MODEL COMBO?:",
-                        choices= c("All","LRXG","LRBAYES","LRRF","XGBAYES","RFBAYES","XGRF","LR","BAYES","XG","RF"),
+                        choices= c("All","LRXG","LRRF","RFXG","LR","RF","XG"),
                         selected = c("All"),
                         options = list(
                           `actions-box` = TRUE,
@@ -1694,15 +1694,15 @@ Logistic regression tries to divide the space so that most of the red marbles en
     ),
     
     
-    
-    
-    
-    tabItem(
-      tabName = "Appendix",
-      style = "color:#CC5500",
-      fluidPage(
-        tags$head(
-          tags$style(HTML("
+  
+
+
+tabItem(
+  tabName = "Appendix",
+  style = "color:#CC5500",
+  fluidPage(
+    tags$head(
+      tags$style(HTML("
       #main-title {
         font-size: 30px;
         color: #CC5000;
@@ -1720,46 +1720,46 @@ Logistic regression tries to divide the space so that most of the red marbles en
         width: 100%;  /* Adjust width as needed */
       }
     "))
-        ),
-        fluidRow(
-          column(12, align = "center",
-                 h3("Other Items to Note:", style = "font-size: 30px; text-align: center;"),
-                 dropdownButton(
-                   label = "View Appendix/Other Notable Items",
-                   icon = icon("football-ball"),
-                   status = "primary",
-                   circle = FALSE,
-                   width = "100%",
-                   p("Bet types: We usually bet using 4 pick 6 leg round robins, so that means we pick 6 games and 4 out of 6 have to hit for us to make money.
+    ),
+    fluidRow(
+      column(12, align = "center",
+             h3("Other Items to Note:", style = "font-size: 30px; text-align: center;"),
+             dropdownButton(
+               label = "View Appendix/Other Notable Items",
+               icon = icon("football-ball"),
+               status = "primary",
+               circle = FALSE,
+               width = "100%",
+               p("Bet types: We usually bet using 4 pick 6 leg round robins, so that means we pick 6 games and 4 out of 6 have to hit for us to make money.
                If 5 out of 6 hit, it triggers some more combinations, and.. we get a big payday! If 6 out of 6 hit.. we are partying hard!! This happened last year! 
                  More on round robins on tab 3 and you can mess around with expected profits.
                It's hard to recommend to tell you how to bet, that's up to your personal style. I could see two or three parlay leg type bets being a good option for return. 
                I could see round robin being a good option if you are willing to put up good $. I could see teasers having some good potential too. Or just play 3 straight bets per week and shoot for going 2 out of 3. 
                I am not a betting portfolio manager unfortunately so that part will be up to you.",
-                     style = "font-size: 20px; text-align: center;"),
-                   p("Things to watch out for: I will be monitoring the kickoff rule change. I've read that there is a 1% increase in points scored for every extra 1 yard in starting field position. 
+                 style = "font-size: 20px; text-align: center;"),
+               p("Things to watch out for: I will be monitoring the kickoff rule change. I've read that there is a 1% increase in points scored for every extra 1 yard in starting field position. 
                       Last year starting field position was around the 25. This is projected to be at the 29-30 yard line this year with the new kickoff rule. 
                       That's a 4-5% point adjustment on the total and will favor teams with strong special teams.
                       I'm not sure if DraftKings/FanDuel have fully baked this in because it's difficult to project due to the lack of historical impact on this rule.
                       We'll adjust after 4 weeks if necessary. 
                  An example of an adjustment would be an offense in the mid-tier being bumped up to high-tier because the bump in points projected now makes them a tier higher.",
-                     style = "font-size: 20px; text-align: center;"),
-                   p("Stay away games/Injuries: Injuries are another thing to watch out for. For example, Jordan Love just got hurt for the Packers and will miss some time. 
+                      style = "font-size: 20px; text-align: center;"),
+               p("Stay away games/Injuries: Injuries are another thing to watch out for. For example, Jordan Love just got hurt for the Packers and will miss some time. 
                       I would highly recommend staying away from games like that for at least a week so we can see how things play out, that includes the over/under too, not just spread. 
                       It would be really noisy at the moment to bake in all these injuries but down the road it might be beneficial to create like an injury factor that's weighted by position. 
                       This most likely won't get added this year and is something in general that may be hard to model out. 
                       Getting back to the main point, I would still probably entertain playing a model picked game if say the number 2 wide receiver is out for a team.
                       The other thing is that the actual spread or over/under line should have some level of injury impact this baked in by the books. 
                       I wouldn't manually adjust the tiers for a less impactful injury as everything else should be reasonably picked up by the model via the current spread or over/under line.",
-                     style = "font-size: 20px; text-align: center;"),
-                   p("Weather: Wind and temperature is a variable accounted for in our model and you'll see it as a range in the 'Full Detail' prediction tabs.
+                      style = "font-size: 20px; text-align: center;"),
+               p("Weather: Wind and temperature is a variable accounted for in our model and you'll see it as a range in the 'Full Detail' prediction tabs.
                       For temperature, we use ranges Below 25 degrees, 25 to 55 degrees, 55 to 85 degrees and above 85 degrees. For wind we use ranges 0 to 10 mph, 10 to 15 mph, 15 to 20 mph, and above 20 mph. 
                       This would just be wind speed, not gusts. These ranges were decided after reading through an article on covers.com that ran analytics on wind, temp, snow, rain.
                   We currently don't account for rain or snow, it has been shown that rain has low impact on a game total, but it does slightly decrease passing production but not anything that materially changes the total. 
                  Snow on the other hand does have an impact on totals and might be a worthwhile variable to include as it drops the field goal conversion rate by 7%. 
                  Snow and rain can stop and go during a game where temp and somewhat wind are more consistent, so I'd rather have the user just be aware of snow games/really rainy games and make there own decisions whether to play that game or not. Will test snow and rain variables separately and together in the model and see if it improves accuracy during this year. If it does not improve accuracy, we will avoid creating more noise for the model and leave those variables out. Including wind and temperature though has shown to improve model accuracy (as we'd expect).",
-                     style = "font-size: 20px; text-align: center;"),
-                   p("Tier information: If you disagree with the tiers, that's fine. They are more judgement calls weeks 1-4, but they are still based on points per game (projected first 4 weeks) for an offense and points allowed (projected first 4 weeks).
+                      style = "font-size: 20px; text-align: center;"),
+               p("Tier information: If you disagree with the tiers, that's fine. They are more judgement calls weeks 1-4, but they are still based on points per game (projected first 4 weeks) for an offense and points allowed (projected first 4 weeks).
 For example if a team averages >= 27.5 points a game, they are in the very high tier. If they score less than 20 points per game they are in the bottom tier. Everything else is in between that.
 For defense, if a team gives up less than 19.5 points per game, they are in the very high tier. If the allow more than 24 points per game, they are in the bottom tier. 
 Everything else in between. Both spread and over/under tiers are created that way. 
@@ -1767,130 +1767,130 @@ Everything else in between. Both spread and over/under tiers are created that wa
                      The tiers then use emerging data after week 4, creating a weighted average on their points per game or points allowed between Vegas projected scored points/projected
                      allowed points and actual points they have scored or given up within the first four weeks.
 So safe to say, Denver giving up 70 points to the Dolphins in 2023 really can create a nasty outlier on points allowed. 
-It's important to catch on to those types of things if possible as it would skew their tier but please do not think more than you have to.",
-                     style = "font-size: 20px; text-align: center;")
-                 )
-          )
-        ),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        br(),
-        tags$h2(id="main-title", "Mark's Picks of the Week (vs. Model and Player Prop(s) of the Week)"),
-        div(class="centered-tab",  # Wrapper to center the tabBox
-            fluidRow(
-              tabBox(
-                id = "matchup_tabbox",
-                tabPanel("Picks We're Playing This Week",
-                         tags$h3(id = "title", "Our Picks"),
-                         wellPanel(
-                           div(class = "big-text",
-                               tags$ul(
-                                 tags$li(our_picks1),
-                                 tags$li(our_picks2),
-                                 tags$li(our_picks3),
-                                 tags$li(our_picks4),
-                                 tags$li(our_picks5),
-                                 tags$li(our_picks6),
-                                 tags$li(our_picks7),
-                                 tags$li(our_picks8),
-                                 tags$li(our_picks9),
-                                 tags$li(our_picks10)
-                               )
+It's important to catch on to those types of things if possible as it would skew their tier but please do not think more than you have to you.",
+                 style = "font-size: 20px; text-align: center;")
+             )
+      )
+    ),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    br(),
+    tags$h2(id="main-title", "Mark's Picks of the Week (vs. Model and Player Prop(s) of the Week)"),
+    div(class="centered-tab",  # Wrapper to center the tabBox
+        fluidRow(
+          tabBox(
+            id = "matchup_tabbox",
+            tabPanel("Picks We're Playing This Week",
+                     tags$h3(id = "title", "Our Picks"),
+                     wellPanel(
+                       div(class = "big-text",
+                           tags$ul(
+                             tags$li(our_picks1),
+                             tags$li(our_picks2),
+                             tags$li(our_picks3),
+                             tags$li(our_picks4),
+                             tags$li(our_picks5),
+                             tags$li(our_picks6),
+                             tags$li(our_picks7),
+                             tags$li(our_picks8),
+                             tags$li(our_picks9),
+                             tags$li(our_picks10)
                            )
-                         )
-                ),
-                tabPanel("Mark's 7 up trends of the week",
-                         tags$h3(id = "title", "Who/What's Trending Up"),
-                         wellPanel(
-                           div(class = "big-text",
-                               tags$ul(
-                                 tags$li(tup1),
-                                 tags$li(tup2),
-                                 tags$li(tup3),
-                                 tags$li(tup4),
-                                 tags$li(tup5),
-                                 tags$li(tup6),
-                                 tags$li(tup7),
-                                 tags$li(tup8)
-                               )
+                       )
+                     )
+            ),
+            tabPanel("Mark's 7 up trends of the week",
+                     tags$h3(id = "title", "Who/What's Trending Up"),
+                     wellPanel(
+                       div(class = "big-text",
+                           tags$ul(
+                             tags$li(tup1),
+                             tags$li(tup2),
+                             tags$li(tup3),
+                             tags$li(tup4),
+                             tags$li(tup5),
+                             tags$li(tup6),
+                             tags$li(tup7),
+                             tags$li(tup8)
                            )
-                         )
-                ),
-                tabPanel("Mark's 7 down trends of the week",
-                         tags$h3(id = "title", "Who/What's Trending Down"),
-                         wellPanel(
-                           div(class = "big-text",
-                               tags$ul(
-                                 tags$li(tdown1),
-                                 tags$li(tdown2),
-                                 tags$li(tdown3),
-                                 tags$li(tdown4),
-                                 tags$li(tdown5),
-                                 tags$li(tdown6),
-                                 tags$li(tdown7),
-                                 tags$li(tdown8)
-                                 
-                               )
+                       )
+                     )
+            ),
+            tabPanel("Mark's 7 down trends of the week",
+                     tags$h3(id = "title", "Who/What's Trending Down"),
+                     wellPanel(
+                       div(class = "big-text",
+                           tags$ul(
+                             tags$li(tdown1),
+                             tags$li(tdown2),
+                             tags$li(tdown3),
+                             tags$li(tdown4),
+                             tags$li(tdown5),
+                             tags$li(tdown6),
+                             tags$li(tdown7),
+                             tags$li(tdown8)
+                             
                            )
-                         )
-                ),
-                tabPanel("Favorite Player Prop(s) of the Week",
-                         tags$h3(id = "title", "Player Prop Locks of the Week"),
-                         wellPanel(
-                           div(class = "big-text",
-                               tags$ul(
-                                 tags$li(player_prop1),
-                                 tags$li(player_prop2),
-                                 tags$li(player_prop3),
-                                 tags$li(player_prop4),
-                                 tags$li(player_prop5),
-                                 tags$li(player_prop6)
-                                 # ,
-                                 # tags$li(player_prop7),
-                                 # tags$li(player_prop8)
-                                 
-                               )
+                       )
+                     )
+            ),
+            tabPanel("Favorite Player Prop(s) of the Week",
+                     tags$h3(id = "title", "Player Prop Locks of the Week"),
+                     wellPanel(
+                       div(class = "big-text",
+                           tags$ul(
+                             tags$li(player_prop1),
+                             tags$li(player_prop2),
+                             tags$li(player_prop3),
+                             tags$li(player_prop4),
+                             tags$li(player_prop5),
+                             tags$li(player_prop6)
+                             # ,
+                             # tags$li(player_prop7),
+                             # tags$li(player_prop8)
+                             
                            )
-                         )
-                ),
-                tabPanel("Spread Picks", DTOutput("spread_picks")),
-                tabPanel("O/U Picks", DTOutput("ou_picks")),
-                width = 24
-              ),
-              style = "padding: 0;"  # Keeps the tabBox tightly wrapped
-            )
+                       )
+                     )
+            ),
+            tabPanel("Spread Picks", DTOutput("spread_picks")),
+            tabPanel("O/U Picks", DTOutput("ou_picks")),
+            width = 24
+          ),
+          style = "padding: 0;"  # Keeps the tabBox tightly wrapped
         )
-        
-        
+    )
+    
+    
       )
     )
   )
 )
+  
 
 
-
-
+  
 
 
 
